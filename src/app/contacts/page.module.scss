@@ -1,0 +1,54 @@
+.contactsPage {
+	padding: 35px 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 35px;
+}
+
+.details {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+
+	&__item {
+		flex: 0 0 250px;
+		text-align: center;
+		padding: 15px 20px;
+
+		display: flex;
+		flex-direction: column;
+
+		h4 {
+			margin-bottom: 20px;
+		}
+
+		&[data-color=frst] {
+			background-color: $accentColorFrst;
+			color: white;
+		}
+
+		&[data-color=scnd] {
+			background-color: $accentColorScnd;
+		}
+
+		&[data-color=thrd] {
+			background-color: $accentColorThrd;
+			color: white;
+		}
+
+		&[data-color=frth] {
+			background-color: $accentColorFrth;
+		}
+	}
+
+	@media (max-width: 425px) {
+		flex-direction: column;
+
+		&__item {
+			flex: 0 0 auto;
+			width: 100%;
+		}
+	}
+}
