@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './page.module.scss'
 import CustomLink from '@/components/custom-link/CustomLink';
+import prisma from '../../../lib/prisma';
 
 const groups = [
 	{ text: 'Початкова', colorScheme: 'frst' },
@@ -24,7 +25,13 @@ const tableData = [
 	}
 ]
 
-const SchedulePage = () => {
+const SchedulePage = async () => {
+	const gr1 = await prisma.players.count({ where: { group: 'beginners' } });
+	const gr2 = await prisma.players.count({ where: { group: 'amateurs' } });
+	const gr3 = await prisma.players.count({ where: { group: 'advanced' } });
+	const gr4 = await prisma.players.count({ where: { group: 'professionals' } });
+	const groupsArray = [gr1, gr2, gr3, gr4];
+
 	return (
 		<main className={styles.schedulePage}>
 			<h1>Наша секція має наступні групи</h1>
@@ -35,7 +42,16 @@ const SchedulePage = () => {
 				))}
 			</div>
 
-			<p>Кожна група вміщає у собі 24 гравця не залежно від статі.</p>
+			<center>
+				<p>Кожна група вміщає 24 гравця не залежно від статі.</p>
+				<p>У блоці нище позначена актуальна кількість гравців у кожній групі.</p>
+			</center>
+
+			<div className={styles.groupTypes}>
+				{groups.map((group, id) => (
+					<div key={id} className={styles.groupTypes__item} data-color={group.colorScheme}>{`${groupsArray[id]}/24`}</div>
+				))}
+			</div>
 
 			<div className={styles.tableSection}>
 				<div className={styles.tableSection__title}>Розклад занять по групам</div>
