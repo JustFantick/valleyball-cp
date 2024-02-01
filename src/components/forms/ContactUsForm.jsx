@@ -2,6 +2,7 @@
 import React from 'react'
 import styles from './forms.module.scss'
 import { useFormState, useFormStatus } from "react-dom";
+import { contactUsFormAction } from '@/server-actions/actions';
 
 const initialState = {
 	message: "",
@@ -9,10 +10,10 @@ const initialState = {
 
 const ContactUsForm = () => {
 	const { pending } = useFormStatus();
-	//const [state, formAction] = useFormState(action, initialState);
+	const [state, formAction] = useFormState(contactUsFormAction, initialState);
 
 	return (
-		<form className={styles.form} action="">
+		<form className={styles.form} action={formAction}>
 			<p>Поля позначені * обов'язкові</p>
 			<label className={styles.form__field}>
 				Ваше ім'я*
@@ -47,6 +48,8 @@ const ContactUsForm = () => {
 			>
 				Відправити
 			</button>
+
+			<p>{state?.message}</p>
 
 		</form>
 	)

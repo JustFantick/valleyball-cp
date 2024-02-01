@@ -2,17 +2,18 @@
 import React from 'react'
 import styles from './forms.module.scss'
 import { useFormState, useFormStatus } from "react-dom";
+import { addRequestToDb } from '@/server-actions/actions';
 
 const initialState = {
 	message: "",
 }
 
 const JoinUsForm = () => {
-	//const { pending } = useFormStatus();
-	//const [state, formAction] = useFormState(action, initialState);
+	const { pending } = useFormStatus();
+	const [state, formAction] = useFormState(addRequestToDb, initialState);
 
 	return (
-		<form className={styles.form} action="">
+		<form className={styles.form} action={formAction}>
 			<label className={styles.form__field}>
 				Ім'я, прізвище
 				<input type="text" name='name' required />
@@ -30,7 +31,7 @@ const JoinUsForm = () => {
 			<label className={styles.form__field}>
 				Вік
 				<select name="age">
-					<option value="kid">Тимчасовий карлик</option>
+					<option value="kid">До 13 років</option>
 					<option value="teenager">Підліток</option>
 					<option value="adult">Дорослий</option>
 				</select>
@@ -48,10 +49,12 @@ const JoinUsForm = () => {
 
 			<button type='submit'
 				className={styles.form__submit}
-			//aria-disabled={pending}
+				aria-disabled={pending}
 			>
 				Надіслати заявку
 			</button>
+
+			<p>{state?.message}</p>
 
 		</form>
 	)
