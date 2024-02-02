@@ -10,7 +10,7 @@ export async function addRequestToDb(prevState, formData) {
 		group: formData.get('group'),
 	}
 
-	revalidatePath('/achievements');
+	revalidatePath('/schedule');
 
 	try {
 		const createdRow = await prisma.players.create({
